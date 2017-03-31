@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-// palomo
+// palomo y tontopolla
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = MainActivity.class.getSimpleName() + ".java";
     private Button mButton, mButton2, mButton3;
