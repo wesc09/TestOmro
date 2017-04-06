@@ -12,11 +12,13 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-// palomo y tontopolla
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = MainActivity.class.getSimpleName() + ".java";
     private Button mButton, mButton2, mButton3;
+
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -28,17 +30,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mButton.setOnClickListener(this);
         mButton2.setOnClickListener(this);
         mButton3.setOnClickListener(this);
-
         setSupportActionBar(toolbar);
+//
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+        Log.d(TAG, "onCreate");
+        Log.d(TAG,"intent: " + getIntent());
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d(TAG, "intent:" + getIntent());
     }
 
     @Override
@@ -68,24 +77,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v == mButton){
+        if (v == mButton) {
             // getPackageName() + getClass().getCanonicalName();
             Log.d(TAG, "onclick");
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("omronconnect://startup?returnUrl=com.example.adria.testomron.MainActivity"));
             startActivity(intent);
         }
-       if (v == mButton2) {
+        if (v == mButton2) {
             // getPackageName() + getClass().getCanonicalName();
             Log.d(TAG, "onclick");
             Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse("testomron://MainActivity"));
             startActivityForResult(intent);
         }
-        if (v == mButton3){
+        if (v == mButton3) {
             // getPackageName() + getClass().getCanonicalName();
             Log.d(TAG, "onclick");
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("omronconnect://startup?returnUrl=com.example.adria.testomron.MainActivity"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("omronconnect://transfer?returnUrl=com.example.adria.testomron.MainActivity&serialId=1234567890qwert12345"));
             startActivity(intent);
         }
 
     }
+
 }
