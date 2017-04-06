@@ -74,11 +74,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("omronconnect://startup?returnUrl=com.example.adria.testomron.MainActivity"));
             startActivity(intent);
         }
-        if (v == mButton2){
+       if (v == mButton2) {
             // getPackageName() + getClass().getCanonicalName();
             Log.d(TAG, "onclick");
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("omronconnect://startup?returnUrl=com.example.adria.testomron.MainActivity"));
-            startActivity(intent);
+            Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse("testomron://MainActivity"));
+            startActivityForResult(intent);
         }
         if (v == mButton3){
             // getPackageName() + getClass().getCanonicalName();
