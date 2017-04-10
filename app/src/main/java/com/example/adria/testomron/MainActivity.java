@@ -1,8 +1,11 @@
 package com.example.adria.testomron;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.IntegerRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +15,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
+
+import static android.R.attr.data;
+import static android.R.attr.showText;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = MainActivity.class.getSimpleName() + ".java";
@@ -31,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mButton2.setOnClickListener(this);
         mButton3.setOnClickListener(this);
         setSupportActionBar(toolbar);
+
 //
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -74,9 +82,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return super.onOptionsItemSelected(item);
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int PICK_CONTACT_REQUEST = 1;
+        // Check which request it is that we're responding to
+        if (requestCode == PICK_CONTACT_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // Get the URI that points to the selected contact
+                Uri contactUri = data.getData();
+                // We only need the NUMBER column, because there will be only one row in the result
+                String[] projection = {ContactsContract.CommonDataKinds.Phone.NUMBER};
 
+                // Perform the query on the contact to get the NUMBER column
+                // We don't need a selection or sort order (there's only one result for the given URI)
+                // CAUTION: The query() method should be called from a separate thread to avoid blocking
+                // your app's UI thread. (For simplicity of the sample, this code doesn't do that.)
+                // Consider using CursorLoader to perform the query.
+                Cursor cursor = getContentResolver()
+                        .query(contactUri, projection, null, null, null);
+                cursor.moveToFirst();
+
+                // Retrieve the phone number from the NUMBER column
+                int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                String number = cursor.getString(column);
+
+                //No se com mostrar el numero de telefon que pilla daqui, alguna idea?
+                int num= Integer.parseInt(number);
+                TextView tv = (TextView)findViewById(R.id.phone_text);
+                tv.setText(num);
+
+                // Do something with the phone number...
+            }
+        }
+    }
     @Override
     public void onClick(View v) {
+        int PICK_CONTACT_REQUEST = 1;
+
         if (v == mButton) {
             // getPackageName() + getClass().getCanonicalName();
             Log.d(TAG, "onclick");
@@ -86,14 +128,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == mButton2) {
             // getPackageName() + getClass().getCanonicalName();
             Log.d(TAG, "onclick");
-            Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse("testomron://MainActivity"));
-            startActivityForResult(intent);
-        }
+            //funcio que va a la pantalla de contacts i et fa picar el contacte que vols la info, en principi es crea un permis temporal sobre aqell contacte per tal de que la app puguir accedir (ja qe contactes te acces restringit per defecte)
+            Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
+            intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+            startActivityForResult(intent, PICK_CONTACT_REQUEST);
+            }
+
+
         if (v == mButton3) {
             // getPackageName() + getClass().getCanonicalName();
             Log.d(TAG, "onclick");
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("omronconnect://transfer?returnUrl=com.example.adria.testomron.MainActivity&serialId=1234567890qwert12345"));
-            startActivity(intent);
+
+
+
+            // Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("omronconnect://transfer?returnUrl=com.example.adria.testomron.MainActivity&serialId=1234567890qwert12345"));
+            //startActivity(intent);
         }
 
     }
