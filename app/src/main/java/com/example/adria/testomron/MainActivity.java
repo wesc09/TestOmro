@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String number = cursor.getString(column);
 
                 // Do something with the phone number...
+
                 etNombre.setText(number);
             }
 
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        int PICK_CONTACT_REQUEST = 1;
+
 
         if (v == mButton) {
             // getPackageName() + getClass().getCanonicalName();
