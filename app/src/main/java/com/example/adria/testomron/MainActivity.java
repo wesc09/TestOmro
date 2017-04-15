@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
-
+import java.io.ObjectInputStream;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mButton, mButton2, mButton3;
     private EditText etNombre;
     static final int PICK_CONTACT_REQUEST = 0;
+    static final int REQUEST_CODE=10;
 
     @Override
 
@@ -86,6 +87,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request it is that we're responding to
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode== REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                Uri responseUri= data.getData();
+
+                //FALTA IMPLEMENTAR
+            }
+        }
         if (requestCode == PICK_CONTACT_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
@@ -107,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                 String number = cursor.getString(column);
 
-                // Do something with the phone number...
+                // Do something with the phone number... (FET)
 
                 etNombre.setText(number);
             }
@@ -124,12 +132,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // getPackageName() + getClass().getCanonicalName();
             Log.d(TAG, "onclick");
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("omronconnect://startup?returnUrl=com.example.adria.testomron.MainActivity"));
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE );
         }
         if (v == mButton2) {
             // getPackageName() + getClass().getCanonicalName();
             Log.d(TAG, "onclick");
-            //funcio que va a la pantalla de contacts i et fa picar el contacte que vols la info, en principi es crea un permis temporal sobre aqell contacte per tal de que la app puguir accedir (ja qe contactes te acces restringit per defecte)
             Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
             intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
             startActivityForResult(intent, PICK_CONTACT_REQUEST);
