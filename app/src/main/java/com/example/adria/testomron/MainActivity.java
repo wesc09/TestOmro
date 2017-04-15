@@ -20,7 +20,7 @@ import java.io.ObjectInputStream;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = MainActivity.class.getSimpleName() + ".java";
     private Button mButton, mButton2, mButton3;
-    private EditText etNombre;
+    private EditText etNombre,etUri;
     static final int PICK_CONTACT_REQUEST = 0;
     static final int REQUEST_CODE=10;
 
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         etNombre = (EditText)findViewById(R.id.etNombre);
+        etUri= (EditText)findViewById(R.id.etUri);
         mButton = (Button) findViewById(R.id.action_button);
         mButton2 = (Button) findViewById(R.id.action_button2);
         mButton3 = (Button) findViewById(R.id.action_button3);
@@ -90,8 +91,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(requestCode== REQUEST_CODE){
             if(resultCode == RESULT_OK){
                 Uri responseUri= data.getData();
-
-                //FALTA IMPLEMENTAR
+                String response= responseUri.toString();
+                etUri.setText(response);
+                //diria que amb axo ens mostrarà tot el string al cuadre de texte "etUri", necesitem el dispositiu per comprovar-ho pero intenta averiguar com pillar el troç del string que volem
             }
         }
         if (requestCode == PICK_CONTACT_REQUEST) {
