@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import java.io.ObjectInputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -92,7 +94,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(resultCode == RESULT_OK){
                 Uri responseUri= data.getData();
                 String response= responseUri.toString();
-                etUri.setText(response);
+                String[]id= response.split("serialId", "&");
+                etUri.setText(id(0));
+
                 //diria que amb axo ens mostrarà tot el string al cuadre de texte "etUri", necesitem el dispositiu per comprovar-ho pero intenta averiguar com pillar el troç del string que volem
             }
         }
