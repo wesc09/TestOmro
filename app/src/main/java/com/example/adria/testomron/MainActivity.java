@@ -1,5 +1,6 @@
 package com.example.adria.testomron;
 
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -25,8 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static String TAG = MainActivity.class.getSimpleName() + ".java";
     private Button mButton, mButton2, mButton3;
     private EditText etData, etUri;
-    static final int PICK_CONTACT_REQUEST = 0;
-    static final int REQUEST_CODE = 10;
+
 
     @Override
 
@@ -71,12 +71,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else{
 
-                String data = responseUri.getQueryParameter("result").toString();
+                String data = responseUri.toString();
                 etData.setText(data);
 
             }
 
         }
+       // Intent it= new Intent("com.android.omronconnect.MainActivity.getDeveiceList");
+
+
     }
 
     @Override
@@ -117,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // getPackageName() + getClass().getCanonicalName();
                 Log.d(TAG, "onclick");
                 String dss= Uri.parse("omronconnect://startup?returnUrl=testomron://MainActivity").toString();
-                Intent intentData = new Intent(Intent.ACTION_VIEW, Uri.parse("omronconnect://transfer?returnUrl=testomron://MainActivity&serialId=000000940221100b1c7a0d02ffff"));
+                Intent intentData = new Intent(Intent.ACTION_VIEW, Uri.parse("omronconnect://transfer?returnUrl=testomron://MainActivity&serialId=000000940221100b1c7a0d02ffff&userIdList=1,2"));
                 startActivity(intentData);
             }
 
@@ -127,8 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "onclick");
 
 
-                // Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("omronconnect://transfer?returnUrl=com.example.adria.testomron.MainActivity&serialId=1234567890qwert12345"));
-                //startActivity(intent);
+
             }
 
         }
