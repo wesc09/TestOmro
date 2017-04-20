@@ -1,4 +1,4 @@
-package com.example.adria.testomron;
+package com.example.adria.KSK;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

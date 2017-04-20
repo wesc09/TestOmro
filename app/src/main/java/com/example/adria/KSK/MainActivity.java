@@ -1,25 +1,16 @@
-package com.example.adria.testomron;
+package com.example.adria.KSK;
 
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.io.ObjectInputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
